@@ -1,0 +1,35 @@
+{
+  "name": "redux-enchant-async-actions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElfenLiedGH/redux-enchant-async-actions.git"
+  },
+  "keywords": [
+    "redux",
+    "async",
+    "action"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElfenLiedGH/redux-enchant-async-actions/issues"
+  },
+  "homepage": "https://github.com/ElfenLiedGH/redux-enchant-async-actions#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.23",
+    "jest": "^27.0.4",
+    "redux": "^4.1.0",
+    "typescript": "^4.3.2"
+  }
+}

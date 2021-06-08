@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "strict": true,
+
+    "incremental": true,
+
+    "lib": ["es2018"],
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "target": "es2017",
+    "sourceMap": true,
+    "declaration": true,
+    "importHelpers": true,
+
+    "outDir": "./dist",
+    "rootDir": "src"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "__tests__",
+    "node_modules"
+  ]
+}
