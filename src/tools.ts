@@ -65,6 +65,9 @@ export function errorGetter(error: AnyObject, action: StandardAction, useDefault
   return defaultErrorGetter(error, action);
 }
 
+/**
+ * reset getters to default
+ */
 export function restoreDefaults() {
   errorGetterOverride = undefined;
   dataGetterOverride = undefined;
