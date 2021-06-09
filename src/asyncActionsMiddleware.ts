@@ -1,20 +1,27 @@
-import {Middleware, AnyAction, Dispatch} from 'redux'
-import {isPromise, dataGetter} from './tools'
+import {Middleware, AnyAction} from 'redux'
+import {isPromise, dataGetter, errorGetter} from './tools'
+import {AnyObjectOrString, StandardAction} from "./types";
 
-const asyncActionsMiddleware: Middleware<{}, AnyAction, Dispatch> = ({dispatch}) => (next) =>
+const asyncActionsMiddleware: Middleware<{}, AnyAction> = ({dispatch}) => (next) =>
   (action) => {
     if (isPromise(action.payload)) {
       action.payload
         .then((res: any) => {
-          const {payload, meta} = dataGetter(res, action);
-          action.payload = payload;
-          action.meta = {
-            ...action.meta,
-            ...meta,
-            loading: false,
-          };
-          action.error = undefined;
-          return dispatch(action);
+          let dataGetterResolve = dataGetter(res, action);
+          if (!isPromise(dataGetterResolve)) {
+            dataGetterResolve = Promise.resolve(dataGetterResolve)
+          }
+          return (dataGetterResolve as Promise<StandardAction>)
+            .then(({payload, meta}) => {
+              action.payload = payload;
+              action.meta = {
+                ...action.meta,
+                ...meta,
+                loading: false,
+              };
+              action.error = undefined;
+              return dispatch(action);
+            })
         })
         .catch((error: any) => {
           if (action.meta) {
@@ -23,8 +30,19 @@ const asyncActionsMiddleware: Middleware<{}, AnyAction, Dispatch> = ({dispatch})
             action.meta = {loading: false};
           }
           action.error = true;
-          action.payload = error;
-          return dispatch(action);
+          let errorGetterResolve = errorGetter(error, action)
+          if (!isPromise(errorGetterResolve)) {
+            errorGetterResolve = Promise.resolve(errorGetterResolve);
+          }
+          ;(errorGetterResolve as Promise<AnyObjectOrString>)
+            .then(resolvedError => {
+              action.payload = resolvedError;
+              return dispatch(action);
+            })
+            .catch(resolvingError => {
+              action.payload = resolvingError;
+              return dispatch(action);
+            })
         });
       next(Object.assign({}, action, {
         meta: Object.assign({}, action.meta, {
