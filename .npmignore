@@ -1,0 +1,8 @@
+.github/
+__tests__/
+src/
+node_modules/
+.gitignore
+babel.config.js
+jest.config.js
+tsconfig.*
