@@ -1,4 +1,5 @@
 .github/
+.idea/
 __tests__/
 src/
 node_modules/
