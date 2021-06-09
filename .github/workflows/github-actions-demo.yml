@@ -1,7 +1,7 @@
 name: run tests
 on: [push, pull_request]
 jobs:
-  Explore-GitHub-Actions:
+  Run-tests-and-try-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
