@@ -1,6 +1,6 @@
 {
   "name": "redux-enchant-async-actions",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "dist/asyncActionsMiddleware.js",
   "scripts": {
